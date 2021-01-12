@@ -147,5 +147,6 @@ public  class Calculator {
         } else {
             System.out.println("Each person should pay for their own meal.");
         }
+
     }
 }
