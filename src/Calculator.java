@@ -1,91 +1,58 @@
 public  class Calculator {
     public static void main(String[] args) {
-        System.out.println("The Bill Calculator");
+        System.out.println("Rachel's Bill Calculator");
         System.out.println("-------------------\n");
+
+        Calculator calculator = new Calculator();
         int numberOfPersons = 4;
 
-        double taxPercent = 8;
-        double tipPercent = 15;
+        double taxPercent = 8.5;
+        double tipPercent = 22;
 
-        double personOneAppetizerCost = 9.99;
-        double personOneMainCost = 23.99;
-        double personOneDessertCost = 10.29;
-        double personOneDrinkCost = 8.50;
+        double[] personOneMealCost = {9.99, 23.99, 10.29, 8.50, 0, 0};
+        double[] personTwoMealCost = {12.99, 18.99, 9.99, 4.25, 0, 0};
+        double[] personThreeMealCost = {10.49, 26.79, 10.29, 3.75, 0, 0};
+        double[] personFourMealCost = {13.79, 25.99, 4.49, 7.50, 0, 0};
 
-        double personTwoAppetizerCost = 12.99;
-        double personTwoMainCost = 18.99;
-        double personTwoDessertCost = 9.99;
-        double personTwoDrinkCost = 4.25;
+        String[] personOneMealItems = {"Adeline", "Stuffed Ziti Frittata", "Shrimp Scampi", "Cheesecake", "Lemonade"};
+        String[] personTwoMealItems = {"Brixton", "Lasagna", "Fettuiccine Alfredo", "Lemon Cream cake", "Iced Tea"};
+        String[] personThreeMealItems = {"Cora", "Fried Mozzerella", "Tour of Italy", "Zeppoli", "Iced Tea"};
+        String[] personFourMealItems = {"Dean", "Classic Shrimp Scampi", "Seafood Alfredo", "Solcini", "Coke"};
 
-        double personThreeAppetizerCost = 10.49;
-        double personThreeMainCost = 26.79;
-        double personThreeDessertCost = 10.29;
-        double personThreeDrinkCost = 3.75;
 
-        double personFourAppetizerCost = 13.79;
-        double personFourMainCost = 25.99;
-        double personFourDessertCost = 4.49;
-        double personFourDrinkCost = 7.50;
+        boolean splitBillEvenly = false;
 
-        String personOneName = "Adeline";
-        String personOneAppetizer = "Stuffed Ziti Fritta";
-        String personOneMain = "Shrimp Scampi";
-        String personOneDessert = "Sicilian Cheesecake";
-        String personOneDrink = "Raspberry Lemonade x 2";
+        double personOneSubTotal = calculator.calculateMealCost(personOneMealCost);
+        double personTwoSubTotal = calculator.calculateMealCost(personTwoMealCost);
+        double personThreeSubTotal = calculator.calculateMealCost(personThreeMealCost);
+        double personFourSubTotal = calculator.calculateMealCost(personFourMealCost);
 
-        String personTwoName = "Brixton";
-        String personTwoAppetizer = "Lasagna Fritta";
-        String personTwoMain = "Fettuccine Alfredo";
-        String personTwoDessert = "Lemon Cream cake";
-        String personTwoDrink = "Mango-Strawberry Iced Tea";
 
-        String personThreeName = "Cora";
-        String personThreeAppetizer = "Fried Mozzarella";
-        String personThreeMain = "Tour of Italy";
-        String personThreeDessert = "Zeppoli";
-        String personThreeDrink = "Fresh Brewed Iced Tea";
+        double personOneTax = calculator.calculateTax(taxPercent, personOneSubTotal);
+        double personTwoTax = calculator.calculateTax(taxPercent, personTwoSubTotal);
+        double personThreeTax = calculator.calculateTax(taxPercent, personThreeSubTotal);
+        double personFourTax = calculator.calculateTax(taxPercent, personFourSubTotal);
 
-        String personFourName = "Dean";
-        String personFourAppetizer = "Classic Shrimp Scampi Fritta";
-        String personFourMain = "Seafood Alfredo";
-        String personFourDessert = "Dolcini";
-        String personFourDrink = "Coke x 2";
-
-        boolean serviceWasGood = false;
-        boolean splitBillEvenly = true;
-
-        double personOneSubTotal = personOneAppetizerCost + personOneMainCost
-                + personOneDessertCost + personOneDrinkCost;
-        double personTwoSubTotal = personTwoAppetizerCost + personTwoMainCost
-                + personTwoDessertCost + personTwoDrinkCost;
-        double personThreeSubTotal = personThreeAppetizerCost + personThreeMainCost
-                + personThreeDessertCost + personThreeDrinkCost;
-        double personFourSubTotal = personFourAppetizerCost + personFourMainCost
-                + personFourDessertCost + personFourDrinkCost;
-
-        double taxAmount = taxPercent / 100;
-        double personOneTax = taxAmount * personOneSubTotal;
-        double personTwoTax = taxAmount * personTwoSubTotal;
-        double personThreeTax = taxAmount * personThreeSubTotal;
-        double personFourTax = taxAmount * personFourSubTotal;
+        personOneMealCost[4] = personOneTax;
+        personTwoMealCost[4] = personTwoTax;
+        personThreeMealCost[4] = personThreeTax;
+        personFourMealCost[4] = personFourTax;
 
         double mealSubTotal = personOneSubTotal + personTwoSubTotal
                 + personThreeSubTotal + personFourSubTotal;
 
-        double mealTax = mealSubTotal * taxAmount;
-        double mealTip = 0; // we will calculate this value later
-        double personOneTip = 0; // we will calculate this value later
-        double personTwoTip = 0; // we will calculate this value later
-        double personThreeTip = 0; // we will calculate this value later
-        double personFourTip = 0; // we will calculate this value later
+        double mealTax = calculator.calculateTax(taxPercent, mealSubTotal);;
+        double mealTip = calculator.calculateTip(mealSubTotal, tipPercent);
+        double personOneTip = calculator.calculateTip(personOneSubTotal, tipPercent);
+        double personTwoTip = calculator.calculateTip(personTwoSubTotal, tipPercent);
+        double personThreeTip =  calculator.calculateTip(personThreeSubTotal, tipPercent);
+        double personFourTip = calculator.calculateTip(personFourSubTotal, tipPercent);
 
-        if( serviceWasGood ) {
-            mealTip = (tipPercent / 100) * mealSubTotal;
-            personOneTip = (tipPercent / 100) * personOneSubTotal;
-            personTwoTip = (tipPercent / 100) * personTwoSubTotal;
-            personThreeTip = (tipPercent / 100) * personThreeSubTotal;
-            personFourTip = (tipPercent / 100) * personFourSubTotal;
-        }
+        personOneMealCost[5] = personOneTip;
+        personTwoMealCost[5] = personTwoTip;
+        personThreeMealCost[5] = personThreeTip;
+        personFourMealCost[5] = personFourTip;
+
 
         double mealTotal =  mealSubTotal + mealTax + mealTip;
         double personOneTotal = personOneSubTotal + personOneTip + personOneTax;
@@ -95,44 +62,11 @@ public  class Calculator {
 
         double evenCostPerPerson = mealTotal / numberOfPersons;
 
-        if(serviceWasGood) {
-            System.out.printf("The service was good, %.1f%% tip will be paid.\n");
-        } else {
-            System.out.println("The service was bad, no tip will be paid.");
-        }
 
-        System.out.printf("%s had\n", personOneName);
-        System.out.printf("%s\t\t$%.2f\n", personOneAppetizer, personOneAppetizerCost);
-        System.out.printf("%s\t\t$%.2f\n", personOneMain, personOneMainCost);
-        System.out.printf("%s\t\t$%.2f\n", personOneDessert, personOneDessertCost);
-        System.out.printf("%s\t\t$%.2f\n", personOneDrink, personOneDrinkCost);
-        System.out.printf("%s's meal costs: $%.2f\n\n",personOneName, personOneTotal);
-
-        System.out.printf("%s had\n", personTwoName);
-        System.out.printf("%s\t\t$%.2f\n", personTwoAppetizer, personTwoAppetizerCost);
-        System.out.printf("%s\t\t$%.2f\n", personTwoMain, personTwoMainCost);
-        System.out.printf("%s\t\t$%.2f\n", personTwoDessert, personTwoDessertCost);
-        System.out.printf("%s\t\t$%.2f\n", personTwoDrink, personTwoDrinkCost);
-        System.out.printf("%s's meal costs: $%.2f\n\n",personTwoName, personTwoTotal);
-
-        System.out.printf("%s had\n", personThreeName);
-        System.out.printf("%s\t\t$%.2f\n", personThreeAppetizer, personThreeAppetizerCost);
-        System.out.printf("%s\t\t$%.2f\n", personThreeMain, personThreeMainCost);
-        System.out.printf("%s\t\t$%.2f\n", personThreeDessert, personThreeDessertCost);
-        System.out.printf("%s\t\t$%.2f\n", personThreeDrink, personThreeDrinkCost);
-        System.out.printf("%s's meal costs: $%.2f\n\n",personThreeName, personThreeTotal);
-
-        System.out.printf("%s had\n", personFourName);
-        System.out.printf("%s\t\t$%.2f\n", personFourAppetizer, personFourAppetizerCost);
-        System.out.printf("%s\t\t$%.2f\n", personFourMain, personFourMainCost);
-        System.out.printf("%s\t\t$%.2f\n", personFourDessert, personFourDessertCost);
-        System.out.printf("%s\t\t$%.2f\n", personFourDrink, personFourDrinkCost);
-        System.out.printf("%s's meal costs: $%.2f\n\n",personFourName, personFourTotal);
-
-        System.out.printf("Total cost of meal: $%.2f (including $%.2f tax and $%.2f tip)\n\n",
-                mealTotal, mealTax, mealTip);
-        System.out.printf("Amount each person pays if split evenly in %d is $%.2f\n\n",
-                numberOfPersons, evenCostPerPerson);
+        calculator.printMealData(personOneMealCost, personOneMealItems);
+        calculator.printMealData(personTwoMealCost, personTwoMealItems);
+        calculator.printMealData(personThreeMealCost, personThreeMealItems);
+        calculator.printMealData(personFourMealCost, personFourMealItems);
 
         double diffPersonOne = Math.abs(personOneTotal - evenCostPerPerson);
         double diffPersonTwo = Math.abs(personTwoTotal - evenCostPerPerson);
@@ -148,5 +82,32 @@ public  class Calculator {
             System.out.println("Each person should pay for their own meal.");
         }
 
+    }
+    public double calculateTip(double mealCost, double tipPercent){
+        double cost = (tipPercent / 100) * mealCost;
+        return cost;
+    }
+    public double calculateMealCost(double[] mealCost){
+        double cost = mealCost[0] + mealCost[1] + mealCost[2] + mealCost[3];
+        return cost;
+    }
+    public double calculateTax(double taxPercent, double mealTotal){
+        double taxAmount = taxPercent / 100;
+        double tax = taxAmount * mealTotal;
+        return tax;
+    }
+    public void printMealData(double[] mealCost, String[] mealInfo){
+        double total = 0;
+        for(double i : mealCost){
+            total = total + i;
+        }
+        System.out.printf("%s's Meal\n", mealInfo[0]);
+        System.out.printf("%s\t\t$%.2f\n", mealInfo[1], mealCost[0]);
+        System.out.printf("%s\t\t$%.2f\n", mealInfo[2], mealCost[1]);
+        System.out.printf("%s\t\t$%.2f\n", mealInfo[3], mealCost[2]);
+        System.out.printf("%s\t\t$%.2f\n", mealInfo[4], mealCost[3]);
+        System.out.printf("Tax\t\t$%.2f\n",mealCost[4]);
+        System.out.printf("Tip\t\t$%.2f\n",mealCost[5]);
+        System.out.printf("%s's meal costs: $%.2f\n\n",mealInfo[0], total);
     }
 }
